@@ -1,6 +1,8 @@
 import { Card } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 
 function MenuCard({ moduleData }) {
+    let navigate = useNavigate();
     let icon;
     switch (moduleData.icon) {
         case 'inventory':
@@ -45,7 +47,7 @@ function MenuCard({ moduleData }) {
     }
 
     return (
-        <a href="#">
+        <a href="" onClick={() => navigate(moduleData.route ?? "/")}>
             <Card className="max-w-sm">
                 <div className="flex flex-col items-center">
                     {icon}

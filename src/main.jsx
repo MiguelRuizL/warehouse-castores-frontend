@@ -13,6 +13,8 @@ import AppLayout from './layouts/AppLayout.jsx';
 import Login from './pages/auth/Login.jsx';
 import Home from './pages/Home.jsx'
 import Register from './pages/auth/Register.jsx';
+import Inventory from './pages/products/Inventory.jsx';
+import Output from './pages/products/Outputs.jsx';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
             path: "/home",
             element: <Home />,
           },
+          {
+            path: "/inventory",
+            element: <Inventory />
+          },
+          {
+            path: "/output",
+            element: <Output />
+          }
         ]
       }
     ]
