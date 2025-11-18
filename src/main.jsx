@@ -15,6 +15,7 @@ import Home from './pages/Home.jsx'
 import Register from './pages/auth/Register.jsx';
 import Inventory from './pages/products/Inventory.jsx';
 import Output from './pages/products/Outputs.jsx';
+import Logbook from './pages/logbook/Logbook.jsx';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
           {
             path: "/output",
             element: <Output />
+          },
+          {
+            path: "/logbook",
+            element: <Logbook />
           }
         ]
       }

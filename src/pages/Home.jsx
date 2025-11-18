@@ -66,7 +66,8 @@ function Home() {
             <MenuCard moduleData={{
               name: "Bitácora",
               description: "Consulta movimientos",
-              icon: "logbook"
+              icon: "logbook",
+              route: "/logbook"
             }} />
           </div>
         </div>
