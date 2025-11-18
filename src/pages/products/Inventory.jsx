@@ -8,6 +8,7 @@ import { ModalEditProduct } from "./ModalEditProduct";
 import { ModalCreateProduct } from "./ModalCreateProduct";
 import { getProducts, editProduct } from "../../services/productService";
 import { confirmModal } from "../../components/ui/Swal";
+import { getCurrentUser } from "../../services/userService";
 
 export default function Inventory() {
     let navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function Inventory() {
     const [openCrModal, setOpenCrModal] = useState(false);
     const [data, setData] = useState([]);
     const [selected, setSelected] = useState({});
+    const [user, setUser] = useState({});
 
     const onEdit = (product) => {
         setSelected(product);
@@ -49,6 +51,19 @@ export default function Inventory() {
             }
         }
 
+        const fetchUser = async () => {
+            try {
+                const userResponse = await getCurrentUser();
+                const userData = userResponse.data.data;
+        
+                console.log('USER', userData);
+            setUser(userData);
+            } catch (error) {
+                console.log('Error al obtener el usuario:', error);
+            }
+        };
+        
+        fetchUser(); 
         loadProducts();
     }, [])
 
@@ -74,7 +89,9 @@ export default function Inventory() {
                 </Breadcrumb>
             </div>
             <div className="flex justify-end">
-                <Button className="py-1 px-2" onClick={(e) => {setOpenCrModal(true)}}>
+                <Button className="py-1 px-2" onClick={(e) => {setOpenCrModal(true)}}
+                    disabled={user.roleName == 'Almacenista'}
+                >
                     <svg
                         width="23" height="23" viewBox="0 0 24 24" 
                         fill="none" stroke="currentColor" className="me-1 font-bold"
@@ -109,12 +126,15 @@ export default function Inventory() {
                                             checked={product.status} 
                                             color="green"
                                             label={product.status ? 'Activo' : 'Inactivo'}
+                                            disabled={user.roleName == 'Almacenista'}
                                             onChange={() => toggleStatus(product)} 
                                         />
                                     </TableCell>
                                     <TableCell>
-                                        <button onClick={() => onEdit(product)}
-                                            className="text-sm bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold p-1 rounded-lg focus:ring-amber-700 focus:outline-none focus:ring-2"
+                                        <button onClick={() => onEdit(product)} disabled={user.roleName == 'Almacenista'}
+                                            className="text-sm bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold 
+                                                p-1 rounded-lg focus:ring-amber-700 focus:outline-none focus:ring-2
+                                                disabled:bg-amber-400/50 disabled:text-gray-700 disabled:cursor-not-allowed"
                                         >
                                             <svg
                                                 width="28" height="28" viewBox="0 0 24 24"

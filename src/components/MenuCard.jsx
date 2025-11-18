@@ -48,7 +48,7 @@ function MenuCard({ moduleData }) {
 
     return (
         <a href="" onClick={() => navigate(moduleData.route ?? "/")}>
-            <Card className="max-w-sm">
+            <Card className="w-60">
                 <div className="flex flex-col items-center">
                     {icon}
                     <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{moduleData.name}</h5>

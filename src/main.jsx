@@ -16,6 +16,7 @@ import Register from './pages/auth/Register.jsx';
 import Inventory from './pages/products/Inventory.jsx';
 import Output from './pages/products/Outputs.jsx';
 import Logbook from './pages/logbook/Logbook.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,22 +38,26 @@ const router = createBrowserRouter([
       {
         element: <ProtectedRoute />,
         children: [
-          {
-            path: "/home",
-            element: <Home />,
-          },
-          {
-            path: "/inventory",
-            element: <Inventory />
-          },
-          {
-            path: "/output",
-            element: <Output />
-          },
-          {
-            path: "/logbook",
-            element: <Logbook />
-          }
+          { path: "/home", element: <Home /> }
+        ]
+      },
+      {
+        element: <ProtectedRoute role={['Administrador']} />,
+        children: [
+          
+          { path: "/logbook", element: <Logbook /> }
+        ]
+      },
+      {
+        element: <ProtectedRoute role={['Almacenista']} />,
+        children: [
+          { path: "/output", element: <Output /> }
+        ]
+      },
+      {
+        element: <ProtectedRoute roles={['Admin', 'Almacenista']} />,
+        children: [
+          { path: "/inventory", element: <Inventory /> },
         ]
       }
     ]
@@ -61,6 +66,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <RouterProvider router={router} />
+      <AuthProvider>
+          <RouterProvider router={router} />
+      </AuthProvider>
   </StrictMode>
 )
